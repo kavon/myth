@@ -9,21 +9,12 @@ Ocaml > 4.01.0
 Quick and Dirty Installation Instructions
 -----------------------------------------
 
-    opam install core
-    opam install menhir
-    make
+    opam pin add myth https://github.com/psosera/myth.git
 
 Example Execution
 -----------------
 
-    >$ make
-    ocamlbuild  synml.native
-    Finished, 1 target (0 cached) in 00:00:00.
-    + menhir --ocamlc 'ocamlfind ocamlc -thread -annot -g -package str -package core -I src' --infer src/parser.mly
-    Warning: 5 states have shift/reduce conflicts.
-    Warning: 19 shift/reduce conflicts were arbitrarily resolved.
-    Finished, 58 targets (0 cached) in 00:00:15.
-    >$ ./synml.native tests/pldi-2015-benchmarks/list_stutter.ml
+    >$ myth tests/pldi-2015-benchmarks/list_stutter.ml
     let stutter : list -> list =
       let rec f1 (l1:list) : list =
         match l1 with
