@@ -1,0 +1,17 @@
+opam-version: "1.3"
+name: "myth"
+version: "0.1.0"
+maintainer: "Peter-Michael Osera"
+authors: "Peter-Michael Osera"
+homepage: "https://github.com/psosera/myth"
+bug-reports: "https://github.com/psosera/myth/issues"
+dev-repo: "https://github.com/psosera/myth.git"
+build: [
+  [make]
+]
+depends: [
+  "ocamlfind" {build}
+  "menhir" {build}
+  "core"
+]
+available: [ ocaml-version > "4.01" ]
