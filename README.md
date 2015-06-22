@@ -1,6 +1,16 @@
 Myth: ML Synthesizer
 ====================
 
+Myth is a type-directed program synthesis tool for ML-like typed, functional programming languages.
+Given a set of top-level declarations, a goal type, and a set of examples, Myth produces a program of the appropriate type that satisfies those examples.
+For more information about Myth, please check out the one-minute overview of our work:
+
+    https://www.youtube.com/watch?v=5a2kRmCtEtM
+
+For more details, please consule our PLDI 2015 paper:
+
+    https://dl.acm.org/citation.cfm?id=2738007&CFID=520143291&CFTOKEN=37485843
+
 Requirements
 ------------
 
