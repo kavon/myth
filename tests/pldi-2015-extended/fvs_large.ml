@@ -6,12 +6,6 @@ type list =
   | Nil
   | Cons of nat * list
 
-type binop =
-  | Add
-  | Sub
-  | Mul
-  | Div
-
 type exp =
   | Unit
   | BVar of nat
@@ -23,9 +17,11 @@ type exp =
   | Snd of exp
   | Inl of exp
   | Inr of exp
-  | Match of exp * nat * exp * nat * exp
   | Const of nat
-  | Binop of exp * binop * exp
+  | Add of exp * exp
+  | Sub of exp * exp
+  | Mult of exp * exp
+  | Div of exp * exp
 
 let rec append (l1:list) (l2:list) : list =
   match l1 with
@@ -35,34 +31,34 @@ let rec append (l1:list) (l2:list) : list =
 
 let fvs_large : exp -> list |>
   { Unit => []
-  | BVar (0) => [0]
-  | BVar (1) => [1]
-  | BVar (2) => [2]
-  | FVar (0) => []
+  | FVar (0) => [0]
+  | FVar (1) => [1]
+  | FVar (2) => [2]
+  | BVar (0) => []
   | Lam (0, Unit) => []
-  | Lam (0, BVar (1)) => [1]
+  | Lam (0, FVar (1)) => [1]
   | App (Unit, Unit) => []
-  | App (BVar (0), Unit) => [0]
-  | App (Unit, BVar (1)) => [1]
-  | App (BVar (0), BVar (1)) => [0; 1]
+  | App (FVar (0), Unit) => [0]
+  | App (Unit, FVar (1)) => [1]
   | Fst (Unit) => []
-  | Fst (BVar (1)) => [1]
+  | Fst (FVar (1)) => [1]
   | Snd (Unit) => []
-  | Snd (BVar (1)) => [1]
+  | Snd (FVar (1)) => [1]
   | Pair (Unit, Unit) => []
-  | Pair (BVar (0), Unit) => [0]
-  | Pair (Unit, BVar (1)) => [1]
-  | Pair (BVar (0), BVar (1)) => [0; 1]
+  | Pair (FVar (0), Unit) => [0]
+  | Pair (Unit, FVar (1)) => [1]
+  | Pair (FVar (0), FVar (1)) => [0; 1]
   | Inl (Unit) => []
-  | Inl (BVar (1)) => [1]
+  | Inl (FVar (1)) => [1]
   | Inr (Unit) => []
-  | Inr (BVar (1)) => [1]
-  | Match (Unit, 0, Unit, 1, Unit) => []
-  | Match (BVar (0), 0, Unit, 1, Unit) => [0]
-  | Match (Unit, 0, BVar (1), 1, Unit) => [1]
-  | Match (Unit, 0, Unit, 1, BVar (2)) => [2]
-  | Match (BVar (2), 0, BVar (1), 1, BVar (0)) => [2; 1; 0]
+  | Inr (FVar (1)) => [1]
   | Const (0) => []
-  | Binop (BVar (0), Add, Unit) => [0]
-  | Binop (Unit, Add, BVar (1)) => [1]
+  | Add (FVar (0), Unit) => [0]
+  | Add (Unit, FVar (1)) => [1]
+  | Sub (FVar (0), Unit) => [0]
+  | Sub (Unit, FVar (1)) => [1]
+  | Mult (FVar (0), Unit) => [0]
+  | Mult (Unit, FVar (1)) => [1]
+  | Div (FVar (0), Unit) => [0]
+  | Div (Unit, FVar (1)) => [1]
   } = ?
