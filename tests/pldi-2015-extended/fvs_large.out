@@ -1,24 +1,34 @@
-(* Generated Thu Nov 13 01:56:25 2014 *)
+(* Generated Tue Jul 21 06:18:06 2015 *)
 let fvs_large : exp -> list =
   let rec f1 (e1:exp) : list =
     match e1 with
       | Unit -> Nil
-      | BVar (n1) -> Cons (n1, Nil)
-      | FVar (n1) -> Nil
+      | BVar (n1) -> Nil
+      | FVar (n1) -> Cons (n1, Nil)
       | Lam (n1, e2) -> f1 e2
-      | App (e2, e3) -> append (f1 e2) (f1 e3)
-      | Pair (e2, e3) -> append (f1 e2) (f1 e3)
+      | App (e2, e3) -> (match f1 e3 with
+                           | Nil -> f1 e2
+                           | Cons (n1, l1) -> Cons (S (O), Nil))
+      | Pair (e2, e3) -> (match f1 e2 with
+                            | Nil -> f1 e3
+                            | Cons (n1, l1) -> Cons (O, f1 e3))
       | Fst (e2) -> f1 e2
       | Snd (e2) -> f1 e2
       | Inl (e2) -> f1 e2
       | Inr (e2) -> f1 e2
-      | Match (e2, n1, e3, n2, e4) -> (match f1 e2 with
-                                         | Nil -> append (f1 e3) (f1 e4)
-                                         | Cons (n3, l1) -> Cons (n3,
-                                                              append (f1 e3)
-                                                                (f1 e4)))
       | Const (n1) -> Nil
-      | Binop (e2, b1, e3) -> append (f1 e2) (f1 e3)
+      | Add (e2, e3) -> (match f1 e3 with
+                           | Nil -> Cons (O, Nil)
+                           | Cons (n1, l1) -> Cons (S (O), Nil))
+      | Sub (e2, e3) -> (match f1 e3 with
+                           | Nil -> Cons (O, Nil)
+                           | Cons (n1, l1) -> Cons (S (O), Nil))
+      | Mult (e2, e3) -> (match f1 e3 with
+                            | Nil -> Cons (O, Nil)
+                            | Cons (n1, l1) -> Cons (S (O), Nil))
+      | Div (e2, e3) -> (match f1 e3 with
+                           | Nil -> Cons (O, Nil)
+                           | Cons (n1, l1) -> Cons (S (O), Nil))
   in
     f1
 ;;
