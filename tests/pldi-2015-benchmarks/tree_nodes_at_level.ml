@@ -34,7 +34,8 @@ let tree_nodes_at_level : tree -> nat -> nat |>
     | 1 => 2
     | 2 => 0
     )
-  | Node (Node (Node(Leaf, True, Leaf), True, Node (Leaf, True, Leaf)), True, Leaf) =>
+  | Node (Node
+      (Node (Leaf, True, Leaf), True, Node (Leaf, True, Leaf)), True, Leaf) =>
     ( 0 => 1
     | 1 => 1
     )

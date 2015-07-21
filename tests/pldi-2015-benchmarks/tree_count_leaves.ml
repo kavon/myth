@@ -23,5 +23,6 @@ let tree_count_leaves : tree -> nat |>
   | Node (Leaf, True, Node (Leaf, True, Leaf)) => 3
   | Node (Node (Node (Leaf, True, Leaf), True, Leaf), True, Leaf) => 4
   | Node (Node (Leaf, True, Leaf), True, Node (Leaf, True, Leaf)) => 4
-  | Node (Node (Leaf, True, Leaf), True, Node (Node (Leaf, True, Leaf), True, Node (Leaf, True, Leaf))) => 6
+  | Node (Node (Leaf, True, Leaf), True,
+      Node (Node (Leaf, True, Leaf), True, Node (Leaf, True, Leaf))) => 6
   } = ?
